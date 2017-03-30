@@ -19,12 +19,12 @@ $('body').on('click', 'button.shopping-item-toggle', function(event) {
 	$(this).parent().siblings().toggleClass('shopping-item__checked');
 });
 
-$('button.shopping-item-delete').click(function(event) {
-	$('.shopping-item').closest('li').remove('li');
+$('body').on('click', 'button.shopping-item-delete', function(event) {
+	$(this).closest('li').remove();
 });
 
 
-$('#js-shopping-list-form').submit(function(event) {
+$('body').on('submit', '#js-shopping-list-form', function(event) {
 	event.preventDefault();
 	addItem(state, $('.shopping-list-entry').val());
 	renderList(state, $('.shopping-list'));
