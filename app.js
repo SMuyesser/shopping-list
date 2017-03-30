@@ -7,13 +7,24 @@ var addItem = function(state, item) {
 };
 
 var renderList = function(state, element) {
+	var htmlSnippet1 = '<li><span class="shopping-item">';
+	var htmlSnippet2 = '</span><div class="shopping-item-controls"><button class="shopping-item-toggle"><span class="button-label">check</span></button><button class="shopping-item-delete"><span class="button-label">delete</span></button></div></li>';
 	var itemsHTML = state.items.map(function(item) {
-		return '<li>' + item + '</li>';
+		return htmlSnippet1 + item + htmlSnippet2;
 	});
 	element.html(itemsHTML);
 };
 
-$('.js-shopping-list-form').submit(function(event) {
+$('body').on('click', 'button.shopping-item-toggle', function(event) {
+	$(this).parent().siblings().toggleClass('shopping-item__checked');
+});
+
+$('button.shopping-item-delete').click(function(event) {
+	$('.shopping-item').closest('li').remove('li');
+});
+
+
+$('#js-shopping-list-form').submit(function(event) {
 	event.preventDefault();
 	addItem(state, $('.shopping-list-entry').val());
 	renderList(state, $('.shopping-list'));
